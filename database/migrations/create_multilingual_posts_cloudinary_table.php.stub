@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateMultilingualPostsCloudinaryTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('multilingual_posts_cloudinary', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('post_id');
+            $table->string('public_id');
+            $table->string('version');
+            $table->string('url');
+            $table->string('type');
+            $table->string('cloud_name');
+            $table->nullableTimestamps();
+        });
+    }
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::dropIfExists('multilingual_posts');
+    }
+}

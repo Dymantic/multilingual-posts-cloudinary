@@ -1,0 +1,31 @@
+{
+    "name": "dymantic/multilingual-posts-cloudinary",
+    "description": "Cloudinary media broker for dymantic/multilingual-posts",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Joyner",
+            "email": "joyner.michael@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "cloudinary/cloudinary_php": "^1.16"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.4",
+        "phpunit/phpunit": "^8.5",
+        "dymantic/multilingual-posts": "^0.7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dymantic\\MultilingualPostsCloudinary\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dymantic\\MultilingualPostsCloudinary\\Tests\\": "tests"
+        }
+    }
+}
