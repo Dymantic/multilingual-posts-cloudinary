@@ -19,9 +19,9 @@ class CloudinaryClientTest extends TestCase
     {
         config([
             'multilingual-posts.cloudinary' => [
-                'cloud_name' => 'dymanticdesign',
-                'key'        => '832825636231376',
-                'secret'     => '4YK7931XrCJqzs-N04W-49qupz0',
+                'cloud_name' => 'testtest',
+                'key'        => '62728283637282',
+                'secret'     => 'super-secret',
                 'folder'     => 'blog-images'
             ]
         ]);
@@ -57,7 +57,7 @@ class CloudinaryClientTest extends TestCase
         $this->assertInstanceOf(CloudinaryUpload::class, $upload);
         $this->assertEquals('blog-images/hzwo4p7hfdteoc1lr9ol', $upload->public_id);
         $this->assertEquals('1576901166', $upload->version);
-        $this->assertEquals('dymanticdesign', $upload->cloud_name);
+        $this->assertEquals('testtest', $upload->cloud_name);
         $this->assertEquals('https://res.cloudinary.com/dymanticdesign/image/upload/v1576901166/test/hzwo4p7hfdteoc1lr9ol.png', $upload->url);
     }
 
@@ -68,9 +68,9 @@ class CloudinaryClientTest extends TestCase
     {
         config([
             'multilingual-posts.cloudinary' => [
-                'cloud_name' => 'dymanticdesign',
-                'key'        => '832825636231376',
-                'secret'     => '4YK7931XrCJqzs-N04W-49qupz0',
+                'cloud_name' => 'testtest',
+                'key'        => '62728283637282',
+                'secret'     => 'super-secret',
                 'folder'     => 'blog-images'
             ]
         ]);
