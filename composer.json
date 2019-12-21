@@ -27,5 +27,12 @@
         "psr-4": {
             "Dymantic\\MultilingualPostsCloudinary\\Tests\\": "tests"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dymantic\\MultilingualPostsCloudinary\\MultilingualPostsCloudinaryServiceProvider"
+            ]
+        }
     }
 }
