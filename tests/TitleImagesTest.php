@@ -9,6 +9,7 @@ use Dymantic\MultilingualPosts\Post;
 use Dymantic\MultilingualPostsCloudinary\CloudinaryBroker;
 use Dymantic\MultilingualPostsCloudinary\CloudinaryClient;
 use Dymantic\MultilingualPostsCloudinary\CloudinaryImage;
+use Dymantic\MultilingualPostsCloudinary\CloudinaryUpload;
 use Dymantic\MultilingualPostsCloudinary\UploadClient;
 use Illuminate\Http\UploadedFile;
 use Mockery;
@@ -124,11 +125,7 @@ class TitleImagesTest extends TestCase
 
                        return true;
                    })
-                   ->andReturn([
-                       'url' => 'https://res.cloudinary.com/xxxxxx/image/upload/v123456789/abcdefg.jpg',
-                       'version' => TestCase::CL_VERSION,
-                       'public_id' => 'abcdefg'
-                   ]);
+                   ->andReturn($this->makeCloudinaryUpload());
         return $mockClient;
     }
 
@@ -148,16 +145,12 @@ class TitleImagesTest extends TestCase
 
                        return true;
                    })
-                   ->andReturn([
-                       'url' => 'https://res.cloudinary.com/xxxxxx/image/upload/v123456789/abcdefg.jpg',
-                       'version' => TestCase::CL_VERSION,
-                       'public_id' => 'abcdefg'
-                   ]);
+                   ->andReturn($this->makeCloudinaryUpload());
 
         $mockClient->shouldReceive('destroy')
             ->once()
             ->withArgs([$public_id])
-            ->andReturn(json_encode(['result' => 'ok']));
+            ->andReturn(['result' => 'ok']);
         return $mockClient;
     }
 
@@ -166,7 +159,8 @@ class TitleImagesTest extends TestCase
         config(['multilingual-posts.cloudinary' => [
             'cloud_name' => TestCase::CLOUD_NAME,
             'key' => 'key',
-            'secret' => 'secret'
+            'secret' => 'secret',
+            'folder' => false,
         ]]);
         config([
             'multilingual-posts.conversions' => [
@@ -199,5 +193,14 @@ class TitleImagesTest extends TestCase
                 ]
             ]
         ]);
+    }
+
+    private function makeCloudinaryUpload()
+    {
+        return new CloudinaryUpload([
+            'secure_url' => 'https://res.cloudinary.com/xxxxxx/image/upload/v123456789/abcdefg.jpg',
+            'version' => TestCase::CL_VERSION,
+            'public_id' => 'abcdefg'
+        ], TestCase::CLOUD_NAME);
     }
 }

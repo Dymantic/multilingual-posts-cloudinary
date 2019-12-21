@@ -21,8 +21,11 @@ class MultilingualPostsCloudinaryServiceProvider extends ServiceProvider
     {
 
         $this->app->bind(UploadClient::class, function($app) {
-            $config = config('multilingual-posts.cloudinary');
-            return new CloudinaryClient($config['cloud_name'], $config['key'], $config['secret']);
+            $cloud = config('multilingual-posts.cloudinary.cloud_name');
+            $key = config('multilingual-posts.cloudinary.key');
+            $secret = config('multilingual-posts.cloudinary.secret');
+            $folder = config('multilingual-posts.cloudinary.folder');
+            return new CloudinaryClient($cloud, $key, $secret, $folder);
         });
 
         $this->app->bind(CloudinaryBroker::class, function($app) {

@@ -23,7 +23,7 @@ class CloudinaryBroker implements MediaBroker
     {
         $this->clearPreviousTitleImages($post->id);
 
-        $response = $this->client->upload($file, ['max-width' => 2400]);
+        $response = $this->client->upload($file, ['width' => 2400]);
 
         return $this->saveTitleImageInfo($response, $post);
     }
@@ -45,9 +45,9 @@ class CloudinaryBroker implements MediaBroker
 
     public function attachImage($post, $file): Image
     {
-        $result = $this->client->upload($file, ['max-width' => 2000]);
+        $upload = $this->client->upload($file, ['width' => 2000]);
 
-        return $this->saveBodyImageInfo($result, $post);
+        return $this->saveBodyImageInfo($upload, $post);
     }
 
     private function saveTitleImageInfo($cloudinary, $post)
@@ -60,15 +60,15 @@ class CloudinaryBroker implements MediaBroker
         return $this->saveImageInfo(static::BODY_TYPE, $cloudinary, $post);
     }
 
-    private function saveImageInfo($type, $cloudinary, $post)
+    private function saveImageInfo($type, CloudinaryUpload $cloudinary, $post)
     {
         $image = CloudinaryImage::create([
             'post_id'    => $post->id,
             'type'       => $type,
-            'public_id'  => $cloudinary['public_id'],
-            'version'    => $cloudinary['version'],
-            'url'        => $cloudinary['url'],
-            'cloud_name' => $this->client->cloud_name
+            'public_id'  => $cloudinary->public_id,
+            'version'    => $cloudinary->version,
+            'url'        => $cloudinary->url,
+            'cloud_name' => $cloudinary->cloud_name
         ])->toArray();
 
         return new Image($image['src'], $image['conversions']);
